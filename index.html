@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#090d1d">
+  <meta name="description" content="Player de pads musicais para worship, com crossfade, favoritos e setlist.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <title>Shimmer Pads V3</title>
+  <style>
+    :root{--bg:#050816;--panel:rgba(15,23,42,.72);--text:#f8fafc;--muted:#94a3b8;--blue:#38bdf8;--violet:#8b5cf6;--danger:#ef4444;--ok:#22c55e;--radius:24px}
+    *{box-sizing:border-box} html{color-scheme:dark;scroll-behavior:smooth}
+    body{margin:0;min-height:100vh;background:var(--bg);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;overflow-x:hidden}
+    button,input,select{font:inherit} button{touch-action:manipulation}
+    .aurora,.aurora:before,.aurora:after{position:fixed;inset:-30%;content:"";z-index:-2;filter:blur(90px);animation:float 14s ease-in-out infinite alternate;background:radial-gradient(circle at 30% 35%,rgba(56,189,248,.32),transparent 35%),radial-gradient(circle at 70% 65%,rgba(139,92,246,.3),transparent 34%)}
+    .aurora:before{animation-duration:19s;transform:rotate(50deg)}.aurora:after{animation-duration:23s;transform:rotate(-35deg)}
+    @keyframes float{to{transform:translate3d(7%,5%,0) rotate(12deg)}}
+    .app{width:min(100%,760px);margin:auto;padding:calc(18px + env(safe-area-inset-top)) 18px calc(28px + env(safe-area-inset-bottom))}
+    header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}.brand h1{font-size:clamp(1.45rem,5vw,2rem);margin:0}.brand p{margin:4px 0 0;color:var(--muted);font-size:.9rem}
+    .icon-btn{width:46px;height:46px;border:1px solid rgba(255,255,255,.14);border-radius:15px;background:rgba(255,255,255,.07);color:white;cursor:pointer}
+    .card{background:var(--panel);border:1px solid rgba(255,255,255,.1);box-shadow:0 18px 50px rgba(0,0,0,.22);backdrop-filter:blur(18px);border-radius:var(--radius)}
+    .now{padding:24px;text-align:center;position:relative;overflow:hidden}.eyebrow{color:var(--muted);font-size:.78rem;letter-spacing:.15em;text-transform:uppercase}.note{font-size:clamp(4rem,20vw,7rem);font-weight:850;line-height:1;margin:13px 0}.state{color:#bae6fd;min-height:1.5em}.meter{height:5px;border-radius:999px;background:rgba(255,255,255,.08);margin-top:18px;overflow:hidden}.meter span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--violet));transition:width .25s}.playing .meter span{width:100%;animation:pulse 1.8s ease-in-out infinite alternate}@keyframes pulse{to{opacity:.35}}
+    .controls{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}.control{padding:15px}.control label{display:flex;justify-content:space-between;color:var(--muted);font-size:.86rem;margin-bottom:9px}.control input{width:100%;accent-color:var(--blue)}.control select{width:100%;padding:10px;border:1px solid rgba(255,255,255,.12);border-radius:12px;background:#111827;color:white}
+    .section-title{display:flex;justify-content:space-between;align-items:center;margin:24px 2px 12px}.section-title h2{font-size:1rem;margin:0}.section-title small{color:var(--muted)}
+    .pads{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}.pad{position:relative;min-height:82px;border:1px solid rgba(255,255,255,.1);border-radius:20px;background:linear-gradient(145deg,rgba(37,99,235,.92),rgba(109,40,217,.92));color:white;font-size:1.45rem;font-weight:800;cursor:pointer;box-shadow:0 9px 22px rgba(37,99,235,.16);transition:transform .15s,box-shadow .2s,border-color .2s}.pad:hover{transform:translateY(-2px)}.pad:focus-visible,.icon-btn:focus-visible,.action:focus-visible{outline:3px solid #f8fafc;outline-offset:3px}.pad.active{border-color:white;box-shadow:0 0 0 2px rgba(56,189,248,.6),0 0 28px rgba(56,189,248,.65)}.star{position:absolute;right:8px;top:7px;padding:5px;border:0;background:transparent;color:rgba(255,255,255,.48);font-size:1rem}.star.on{color:#fde047}
+    .actions{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:10px;margin-top:15px}.action{min-height:54px;border:0;border-radius:17px;color:white;font-weight:750;cursor:pointer;background:rgba(255,255,255,.09)}.stop{background:linear-gradient(135deg,#dc2626,#ef4444)}.primary{background:linear-gradient(135deg,#0284c7,#7c3aed)}
+    .chips{display:flex;gap:8px;overflow:auto;padding:2px 1px 7px}.chip{flex:0 0 auto;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.06);color:white;border-radius:999px;padding:9px 13px;cursor:pointer}.empty{color:var(--muted);font-size:.88rem}
+    .setlist{padding:14px}.set-row{display:grid;grid-template-columns:1fr 92px 42px;gap:9px;margin-bottom:9px}.set-row input,.set-row select{width:100%;border:1px solid rgba(255,255,255,.12);border-radius:12px;background:#0f172a;color:white;padding:11px}.remove{border:0;border-radius:12px;background:rgba(239,68,68,.13);color:#fca5a5;cursor:pointer}.set-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:10px}.mini{border:1px solid rgba(255,255,255,.12);border-radius:12px;background:rgba(255,255,255,.06);color:white;padding:10px 13px;cursor:pointer}
+    .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translate(-50%,130px);background:#e2e8f0;color:#0f172a;padding:11px 16px;border-radius:999px;font-weight:700;transition:.25s;z-index:8}.toast.show{transform:translate(-50%,0)}
+    .splash{position:fixed;inset:0;z-index:20;display:grid;place-items:center;background:#050816;transition:opacity .5s,visibility .5s}.splash.hide{opacity:0;visibility:hidden}.splash div{text-align:center}.splash b{font-size:2rem}.splash span{display:block;color:var(--muted);margin-top:8px}
+    .worship header,.worship .controls,.worship .section-title,.worship .pads,.worship .chips,.worship .setlist,.worship footer{display:none}.worship .app{display:grid;align-content:center;min-height:100vh}.worship .now{padding:48px 20px}.worship .actions{grid-template-columns:1fr 1fr}.worship #modeBtn{display:block}.worship .note{font-size:min(35vw,11rem)}
+    footer{text-align:center;color:var(--muted);font-size:.78rem;margin-top:28px}
+    @media(max-width:560px){.pads{grid-template-columns:repeat(3,1fr)}.controls{grid-template-columns:1fr}.actions{grid-template-columns:1fr 1fr}.stop{grid-column:1/-1}.set-row{grid-template-columns:1fr 78px 40px}}
+    @media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
+
+    .offline-card{margin-top:14px;padding:15px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px}.offline-info strong{display:block}.offline-info small{color:var(--muted)}.download{border:0;border-radius:14px;background:linear-gradient(135deg,#059669,#16a34a);color:white;font-weight:800;padding:12px 14px;cursor:pointer}.download:disabled{opacity:.55;cursor:wait}.progress{grid-column:1/-1;height:6px;border-radius:999px;background:rgba(255,255,255,.09);overflow:hidden}.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,#22c55e,#38bdf8);transition:width .2s}.connection{display:inline-flex;align-items:center;gap:6px}.dot{width:8px;height:8px;border-radius:50%;background:#22c55e}.offline .dot{background:#f59e0b}
+    @media(min-width:760px) and (orientation:landscape){.app{width:min(100%,1180px);display:grid;grid-template-columns:minmax(320px,.85fr) minmax(420px,1.15fr);gap:18px;align-items:start}.app>header{grid-column:1/-1}.now,.controls,.offline-card,.actions{grid-column:1}.section-title,.pads,.chips,.setlist,footer{grid-column:2}.controls{grid-template-columns:1fr}.pads{grid-template-columns:repeat(4,1fr)}.actions{grid-template-columns:1fr 1fr}.stop{grid-column:1/-1}.app>.section-title:nth-of-type(1){margin-top:0}}
+    @media(max-width:380px){.app{padding-left:12px;padding-right:12px}.pads{gap:8px}.pad{min-height:72px;border-radius:17px;font-size:1.25rem}.actions{grid-template-columns:1fr}.stop{grid-column:auto}.brand p{display:none}}
+  </style>
+</head>
+<body>
+<div class="aurora" aria-hidden="true"></div>
+<div class="splash" id="splash"><div><b>✨ Shimmer Pads</b><span>Ambient Worship</span></div></div>
+<main class="app">
+  <header><div class="brand"><h1>✨ Shimmer Pads</h1><p>Player worship V3</p></div><button class="icon-btn" id="fullscreenBtn" aria-label="Tela cheia" title="Tela cheia">⛶</button></header>
+  <section class="now card" id="nowCard" aria-live="polite"><div class="eyebrow">Tocando agora</div><div class="note" id="currentNote">--</div><div class="state" id="playerState">Escolha um tom</div><div class="meter"><span></span></div></section>
+  <section class="controls">
+    <div class="control card"><label for="volume"><span>Volume master</span><strong id="volumeValue">80%</strong></label><input id="volume" type="range" min="0" max="100" value="80"></div>
+    <div class="control card"><label for="fade"><span>Crossfade</span><strong id="fadeValue">4s</strong></label><select id="fade"><option value="1">1 segundo</option><option value="2">2 segundos</option><option value="4" selected>4 segundos</option><option value="8">8 segundos</option></select></div>
+  </section>
+  <section class="offline-card card" id="offlineCard"><div class="offline-info"><strong>Uso offline</strong><small id="offlineStatus">Verificando os arquivos...</small></div><button class="download" id="downloadBtn">Baixar 12 pads</button><div class="progress" aria-hidden="true"><span id="downloadProgress"></span></div></section>
+  <div class="section-title"><h2>Favoritos</h2><small>Toque na estrela para editar</small></div><div class="chips" id="favorites"></div>
+  <div class="section-title"><h2>Todos os tons</h2><small>MP3 em loop</small></div><section class="pads" id="pads" aria-label="Tons musicais"></section>
+  <section class="actions"><button class="action stop" id="stopBtn">■ Parar</button><button class="action primary" id="nextBtn">Próximo tom →</button><button class="action" id="modeBtn">Modo worship</button></section>
+  <div class="section-title"><h2>Histórico</h2><button class="mini" id="clearHistory">Limpar</button></div><div class="chips" id="history"></div>
+  <div class="section-title"><h2>Setlist</h2><small>Salva no aparelho</small></div>
+  <section class="setlist card"><div id="setRows"></div><div class="set-actions"><button class="mini" id="addSong">+ Adicionar música</button><button class="mini" id="saveSet">Salvar setlist</button><button class="mini" id="resetSet">Limpar</button></div></section>
+  <footer>Shimmer Pads V3 • funciona melhor com fones ou saída de áudio externa</footer>
+</main><div class="toast" id="toast"></div>
+<script>
+const NOTES=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const prefs=JSON.parse(localStorage.getItem('sp-prefs')||'{}');
+let active=[], currentNote=null, currentButton=null, setIndex=-1, audioCtx=null, wakeLock=null;
+let favorites=prefs.favorites||['D','E','G','A']; let history=prefs.history||[];
+const volume=$('#volume'), fade=$('#fade'); volume.value=prefs.volume??80; fade.value=prefs.fade??4;
+function persist(){localStorage.setItem('sp-prefs',JSON.stringify({favorites,history,volume:volume.value,fade:fade.value}))}
+function audioUrl(note){return 'audio/'+encodeURIComponent(note)+'.mp3'}
+function ensureAudioContext(){if(!audioCtx){audioCtx=new (window.AudioContext||window.webkitAudioContext)()}if(audioCtx.state==='suspended')audioCtx.resume();return audioCtx}
+function setMediaSession(note){if(!('mediaSession' in navigator))return;try{navigator.mediaSession.metadata=new MediaMetadata({title:`Pad ${note}`,artist:'Shimmer Pads',album:'Ambient Worship'});navigator.mediaSession.playbackState='playing'}catch(e){}}
+async function requestWakeLock(){if(!('wakeLock' in navigator)||document.visibilityState!=='visible')return;try{wakeLock=await navigator.wakeLock.request('screen')}catch(e){}}
+
+function toast(msg){const el=$('#toast');el.textContent=msg;el.classList.add('show');clearTimeout(el.t);el.t=setTimeout(()=>el.classList.remove('show'),2200)}
+function renderPads(){const box=$('#pads');box.innerHTML='';NOTES.forEach(note=>{const b=document.createElement('button');b.className='pad'+(note===currentNote?' active':'');b.dataset.note=note;b.innerHTML=`<span>${note}</span><span class="star ${favorites.includes(note)?'on':''}" role="button" aria-label="Favoritar ${note}">★</span>`;b.addEventListener('click',e=>{if(e.target.classList.contains('star')){toggleFavorite(note);e.stopPropagation()}else playPad(note,b)});box.appendChild(b)})}
+function renderFavorites(){const box=$('#favorites');box.innerHTML=favorites.length?'':'<span class="empty">Nenhum favorito.</span>';favorites.forEach(n=>{const b=document.createElement('button');b.className='chip';b.textContent='★ '+n;b.onclick=()=>playPad(n,$(`.pad[data-note="${CSS.escape(n)}"]`));box.appendChild(b)})}
+function renderHistory(){const box=$('#history');box.innerHTML=history.length?'':'<span class="empty">Os tons tocados aparecerão aqui.</span>';history.forEach(n=>{const b=document.createElement('button');b.className='chip';b.textContent=n;b.onclick=()=>playPad(n,$(`.pad[data-note="${CSS.escape(n)}"]`));box.appendChild(b)})}
+function toggleFavorite(note){favorites=favorites.includes(note)?favorites.filter(x=>x!==note):[...favorites,note];persist();renderPads();renderFavorites()}
+function ramp(track,to,duration,stopAfter=false){
+  const ctx=ensureAudioContext(), now=ctx.currentTime;
+  track.gain.gain.cancelScheduledValues(now);
+  track.gain.gain.setValueAtTime(track.gain.gain.value,now);
+  track.gain.gain.linearRampToValueAtTime(to,now+Math.max(.02,duration));
+  if(track.timer)clearTimeout(track.timer);
+  if(stopAfter)track.timer=setTimeout(()=>{track.audio.pause();track.audio.currentTime=0;try{track.source.disconnect();track.gain.disconnect()}catch(e){}active=active.filter(x=>x!==track)},duration*1000+120);
+}
+async function playPad(note,button){
+  if(note===currentNote&&active.length){toast(note+' já está tocando');return}
+  const ctx=ensureAudioContext(),target=Number(volume.value)/100,duration=Number(fade.value);
+  const audio=new Audio(audioUrl(note));audio.loop=true;audio.preload='auto';audio.crossOrigin='anonymous';
+  const source=ctx.createMediaElementSource(audio),gain=ctx.createGain();gain.gain.value=0;source.connect(gain).connect(ctx.destination);
+  const track={audio,note,source,gain,timer:null};
+  audio.addEventListener('error',()=>toast(`Não encontrei audio/${note}.mp3`),{once:true});
+  try{await audio.play()}catch(e){toast('Não foi possível iniciar o áudio');try{source.disconnect();gain.disconnect()}catch(_){}return}
+  active.forEach(t=>ramp(t,0,duration,true));active.push(track);ramp(track,target,duration);
+  currentNote=note;currentButton=button;history=[note,...history.filter(x=>x!==note)].slice(0,6);persist();updatePlayer('Tocando em loop');renderPads();renderHistory();setMediaSession(note);requestWakeLock();
+}
+function updatePlayer(text){$('#currentNote').textContent=currentNote||'--';$('#playerState').textContent=text||'Escolha um tom';$('#nowCard').classList.toggle('playing',!!currentNote)}
+function stopAll(){const duration=Number(fade.value);if('mediaSession' in navigator)try{navigator.mediaSession.playbackState='none'}catch(e){}active.forEach(t=>ramp(t,0,duration,true));currentNote=null;currentButton=null;updatePlayer('Finalizando com fade');renderPads();setTimeout(()=>{if(!currentNote)updatePlayer('Escolha um tom')},duration*1000+100)}
+volume.oninput=()=>{
+const AUDIO_URLS=NOTES.map(audioUrl);
+async function refreshOfflineStatus(){
+  if(!('caches' in window)){ $('#offlineStatus').textContent='Cache offline não suportado neste navegador'; $('#downloadBtn').disabled=true; return; }
+  const cache=await caches.open('shimmer-pads-v3-audio');let count=0;
+  for(const url of AUDIO_URLS)if(await cache.match(url))count++;
+  $('#downloadProgress').style.width=(count/AUDIO_URLS.length*100)+'%';
+  $('#offlineStatus').textContent=count===AUDIO_URLS.length?'Todos os pads estão disponíveis offline':`${count} de ${AUDIO_URLS.length} pads disponíveis offline`;
+  $('#downloadBtn').textContent=count===AUDIO_URLS.length?'Atualizar pads':'Baixar 12 pads';
+}
+$('#downloadBtn').onclick=async()=>{
+  const btn=$('#downloadBtn');btn.disabled=true;const cache=await caches.open('shimmer-pads-v3-audio');let done=0,failed=0;
+  for(const url of AUDIO_URLS){try{const res=await fetch(url,{cache:'reload'});if(!res.ok)throw Error();await cache.put(url,res.clone());done++}catch(e){failed++}$('#downloadProgress').style.width=((done+failed)/AUDIO_URLS.length*100)+'%';$('#offlineStatus').textContent=`Baixando: ${done+failed} de ${AUDIO_URLS.length}`}
+  btn.disabled=false;await refreshOfflineStatus();toast(failed?`${failed} arquivo(s) não foram baixados`:'Pads prontos para uso offline');
+};
+window.addEventListener('online',()=>{document.body.classList.remove('offline');refreshOfflineStatus()});
+window.addEventListener('offline',()=>{document.body.classList.add('offline');toast('Sem internet: usando arquivos salvos')});
+document.body.classList.toggle('offline',!navigator.onLine);
+if('mediaSession' in navigator){
+  try{navigator.mediaSession.setActionHandler('play',()=>active.at(-1)?.audio.play());navigator.mediaSession.setActionHandler('pause',()=>active.at(-1)?.audio.pause());navigator.mediaSession.setActionHandler('stop',stopAll)}catch(e){}
+}
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'){requestWakeLock();if(audioCtx?.state==='suspended')audioCtx.resume()}});
+
+$('#volumeValue').textContent=volume.value+'%';const target=Number(volume.value)/100;active.filter(t=>t.note===currentNote).forEach(t=>ramp(t,target,.15));persist()};
+fade.onchange=()=>{$('#fadeValue').textContent=fade.value+'s';persist()};
+$('#stopBtn').onclick=stopAll; $('#clearHistory').onclick=()=>{history=[];persist();renderHistory()};
+$('#modeBtn').onclick=()=>{document.body.classList.toggle('worship');$('#modeBtn').textContent=document.body.classList.contains('worship')?'Sair do worship':'Modo worship'};
+$('#fullscreenBtn').onclick=async()=>{try{if(!document.fullscreenElement)await document.documentElement.requestFullscreen();else await document.exitFullscreen()}catch(e){toast('Tela cheia não disponível')}};
+function loadSet(){return JSON.parse(localStorage.getItem('sp-setlist')||'[{"name":"Abertura","note":"D"},{"name":"Ministração","note":"G"}]')}
+function renderSet(){const rows=$('#setRows');rows.innerHTML='';loadSet().forEach((song,i)=>addRow(song.name,song.note,i))}
+function addRow(name='',note='C'){const row=document.createElement('div');row.className='set-row';row.innerHTML=`<input aria-label="Nome da música" value="${String(name).replaceAll('&','&amp;').replaceAll('"','&quot;')}"><select aria-label="Tom">${NOTES.map(n=>`<option ${n===note?'selected':''}>${n}</option>`).join('')}</select><button class="remove" aria-label="Remover">×</button>`;row.querySelector('.remove').onclick=()=>row.remove();$('#setRows').appendChild(row)}
+function saveSet(){const data=$$('.set-row').map(r=>({name:r.querySelector('input').value.trim()||'Sem título',note:r.querySelector('select').value}));localStorage.setItem('sp-setlist',JSON.stringify(data));toast('Setlist salva');return data}
+$('#addSong').onclick=()=>addRow();$('#saveSet').onclick=saveSet;$('#resetSet').onclick=()=>{localStorage.removeItem('sp-setlist');renderSet();toast('Setlist restaurada')};
+$('#nextBtn').onclick=()=>{const set=saveSet();if(!set.length){toast('Adicione músicas à setlist');return}setIndex=(setIndex+1)%set.length;const item=set[setIndex];playPad(item.note,$(`.pad[data-note="${CSS.escape(item.note)}"]`));toast(`${item.name} • ${item.note}`)};
+window.addEventListener('keydown',e=>{if(e.code==='Space'&&!["INPUT","SELECT"].includes(document.activeElement.tagName)){e.preventDefault();stopAll()}const i=Number(e.key)-1;if(i>=0&&i<NOTES.length)playPad(NOTES[i],$(`.pad[data-note="${CSS.escape(NOTES[i])}"]`))});
+window.addEventListener('beforeunload',()=>active.forEach(t=>t.audio.pause()));
+
+const AUDIO_URLS=NOTES.map(audioUrl);
+async function refreshOfflineStatus(){
+  if(!('caches' in window)){ $('#offlineStatus').textContent='Cache offline não suportado neste navegador'; $('#downloadBtn').disabled=true; return; }
+  const cache=await caches.open('shimmer-pads-v3-audio');let count=0;
+  for(const url of AUDIO_URLS)if(await cache.match(url))count++;
+  $('#downloadProgress').style.width=(count/AUDIO_URLS.length*100)+'%';
+  $('#offlineStatus').textContent=count===AUDIO_URLS.length?'Todos os pads estão disponíveis offline':`${count} de ${AUDIO_URLS.length} pads disponíveis offline`;
+  $('#downloadBtn').textContent=count===AUDIO_URLS.length?'Atualizar pads':'Baixar 12 pads';
+}
+$('#downloadBtn').onclick=async()=>{
+  const btn=$('#downloadBtn');btn.disabled=true;const cache=await caches.open('shimmer-pads-v3-audio');let done=0,failed=0;
+  for(const url of AUDIO_URLS){try{const res=await fetch(url,{cache:'reload'});if(!res.ok)throw Error();await cache.put(url,res.clone());done++}catch(e){failed++}$('#downloadProgress').style.width=((done+failed)/AUDIO_URLS.length*100)+'%';$('#offlineStatus').textContent=`Baixando: ${done+failed} de ${AUDIO_URLS.length}`}
+  btn.disabled=false;await refreshOfflineStatus();toast(failed?`${failed} arquivo(s) não foram baixados`:'Pads prontos para uso offline');
+};
+window.addEventListener('online',()=>{document.body.classList.remove('offline');refreshOfflineStatus()});
+window.addEventListener('offline',()=>{document.body.classList.add('offline');toast('Sem internet: usando arquivos salvos')});
+document.body.classList.toggle('offline',!navigator.onLine);
+if('mediaSession' in navigator){
+  try{navigator.mediaSession.setActionHandler('play',()=>active.at(-1)?.audio.play());navigator.mediaSession.setActionHandler('pause',()=>active.at(-1)?.audio.pause());navigator.mediaSession.setActionHandler('stop',stopAll)}catch(e){}
+}
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'){requestWakeLock();if(audioCtx?.state==='suspended')audioCtx.resume()}});
+
+$('#volumeValue').textContent=volume.value+'%';$('#fadeValue').textContent=fade.value+'s';renderPads();renderFavorites();renderHistory();renderSet();refreshOfflineStatus();
+setTimeout(()=>$('#splash').classList.add('hide'),650);
+if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+</script></body></html>
