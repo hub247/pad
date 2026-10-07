@@ -1,0 +1,12 @@
+new-C.mp3
+new-C#.mp3
+new-D.mp3
+new-D#.mp3
+new-E.mp3
+new-F.mp3
+new-F#.mp3
+new-G.mp3
+new-G#.mp3
+new-A.mp3
+new-A#.mp3
+new-B.mp3

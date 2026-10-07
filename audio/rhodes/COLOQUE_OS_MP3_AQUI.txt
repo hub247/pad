@@ -1,0 +1,12 @@
+rhodes-C.mp3
+rhodes-C#.mp3
+rhodes-D.mp3
+rhodes-D#.mp3
+rhodes-E.mp3
+rhodes-F.mp3
+rhodes-F#.mp3
+rhodes-G.mp3
+rhodes-G#.mp3
+rhodes-A.mp3
+rhodes-A#.mp3
+rhodes-B.mp3

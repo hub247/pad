@@ -1,0 +1,12 @@
+agudo-C.mp3
+agudo-C#.mp3
+agudo-D.mp3
+agudo-D#.mp3
+agudo-E.mp3
+agudo-F.mp3
+agudo-F#.mp3
+agudo-G.mp3
+agudo-G#.mp3
+agudo-A.mp3
+agudo-A#.mp3
+agudo-B.mp3

@@ -1,0 +1,12 @@
+warm-C.mp3
+warm-C#.mp3
+warm-D.mp3
+warm-D#.mp3
+warm-E.mp3
+warm-F.mp3
+warm-F#.mp3
+warm-G.mp3
+warm-G#.mp3
+warm-A.mp3
+warm-A#.mp3
+warm-B.mp3

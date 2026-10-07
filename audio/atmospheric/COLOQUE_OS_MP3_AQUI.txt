@@ -1,0 +1,12 @@
+atmospheric-C.mp3
+atmospheric-C#.mp3
+atmospheric-D.mp3
+atmospheric-D#.mp3
+atmospheric-E.mp3
+atmospheric-F.mp3
+atmospheric-F#.mp3
+atmospheric-G.mp3
+atmospheric-G#.mp3
+atmospheric-A.mp3
+atmospheric-A#.mp3
+atmospheric-B.mp3
