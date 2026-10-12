@@ -1,0 +1,12 @@
+stoutcreek-C.mp3
+stoutcreek-C#.mp3
+stoutcreek-D.mp3
+stoutcreek-D#.mp3
+stoutcreek-E.mp3
+stoutcreek-F.mp3
+stoutcreek-F#.mp3
+stoutcreek-G.mp3
+stoutcreek-G#.mp3
+stoutcreek-A.mp3
+stoutcreek-A#.mp3
+stoutcreek-B.mp3
