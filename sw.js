@@ -1,1 +1,0 @@
-const S='pad-v10-shell';addEventListener('install',e=>e.waitUntil(caches.open(S).then(c=>c.addAll(['./','./index.html','./manifest.webmanifest','./icons/icon-192.png','./icons/icon-512.png']))));addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(x=>x||fetch(e.request))))
