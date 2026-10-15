@@ -1,0 +1,178 @@
+[
+  {
+    "test": "Tutorial no primeiro acesso",
+    "passed": true
+  },
+  {
+    "test": "12 notas renderizadas",
+    "passed": true
+  },
+  {
+    "test": "Fade em chips 2/4/6/8",
+    "passed": true
+  },
+  {
+    "test": "Criar música completa",
+    "passed": true
+  },
+  {
+    "test": "Modos em português",
+    "passed": true
+  },
+  {
+    "test": "Reordenar músicas",
+    "passed": true
+  },
+  {
+    "test": "Editar música",
+    "passed": true
+  },
+  {
+    "test": "Cópia global somente nomes",
+    "passed": true
+  },
+  {
+    "test": "Prévia contextual de metrônomo",
+    "passed": true
+  },
+  {
+    "test": "Personalização individual",
+    "passed": true
+  },
+  {
+    "test": "Toque simples inicia modo somente metrônomo",
+    "passed": true
+  },
+  {
+    "test": "Preparar não interrompe metrônomo",
+    "passed": true
+  },
+  {
+    "test": "Iniciar preparada pad + metrônomo",
+    "passed": true
+  },
+  {
+    "test": "Fade-in: ganho realmente aumenta",
+    "passed": true
+  },
+  {
+    "test": "Crossfade com duas vozes",
+    "passed": true
+  },
+  {
+    "test": "Fade-out: ganho diminui antes de pausar",
+    "passed": true
+  },
+  {
+    "test": "Pausa apenas ao terminar fade",
+    "passed": true
+  },
+  {
+    "test": "Presets BPM",
+    "passed": true
+  },
+  {
+    "test": "Botão +1 BPM",
+    "passed": true
+  },
+  {
+    "test": "Slider permanece no DOM ao arrastar",
+    "passed": true
+  },
+  {
+    "test": "Escolha de compasso",
+    "passed": true
+  },
+  {
+    "test": "TAP calcula BPM",
+    "passed": true
+  },
+  {
+    "test": "Favoritar nota",
+    "passed": true
+  },
+  {
+    "test": "Busca de biblioteca",
+    "passed": true
+  },
+  {
+    "test": "Biblioteca favorita",
+    "passed": true
+  },
+  {
+    "test": "Tema vermelho",
+    "passed": true
+  },
+  {
+    "test": "Loops independentes",
+    "passed": true
+  },
+  {
+    "test": "Instruções instalação",
+    "passed": true
+  },
+  {
+    "test": "Palco sem sobreposição 320x568",
+    "passed": true
+  },
+  {
+    "test": "Palco sem sobreposição 390x740",
+    "passed": true
+  },
+  {
+    "test": "Palco sem sobreposição 414x896",
+    "passed": true
+  },
+  {
+    "test": "Palco sem sobreposição 768x1024",
+    "passed": true
+  },
+  {
+    "test": "Palco sem sobreposição 1024x768",
+    "passed": true
+  },
+  {
+    "test": "Palco sem sobreposição 1366x768",
+    "passed": true
+  },
+  {
+    "test": "Palco sem sobreposição 844x390",
+    "passed": true
+  },
+  {
+    "test": "Trava no Modo Palco",
+    "passed": true
+  },
+  {
+    "test": "Desbloqueio por pressão longa",
+    "passed": true
+  },
+  {
+    "test": "Confirmação antes de excluir",
+    "passed": true
+  },
+  {
+    "test": "Cancelar exclusão preserva música",
+    "passed": true
+  },
+  {
+    "test": "Excluir música",
+    "passed": true
+  },
+  {
+    "test": "Restauração oferecida após recarga",
+    "passed": true
+  },
+  {
+    "test": "Restaura configuração sem tocar áudio",
+    "passed": true
+  },
+  {
+    "test": "Sem erros JavaScript",
+    "passed": true
+  },
+  {
+    "test": "Erros JavaScript",
+    "errors": []
+  }
+]
