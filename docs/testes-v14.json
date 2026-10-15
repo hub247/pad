@@ -1,0 +1,115 @@
+{
+  "testes": [
+    {
+      "teste": "Pad usa player nativo sem AudioContext",
+      "aprovado": true
+    },
+    {
+      "teste": "Fade nativo aumenta volume",
+      "aprovado": true,
+      "antes": 0.06638716478238371,
+      "depois": 0.6491832582927889
+    },
+    {
+      "teste": "Media Session registra reprodução",
+      "aprovado": true
+    },
+    {
+      "teste": "Controles play/pause/stop instalados",
+      "aprovado": true
+    },
+    {
+      "teste": "Player avança com JavaScript congelado",
+      "aprovado": true,
+      "antes": 2.279868,
+      "depois": 4.793975
+    },
+    {
+      "teste": "Pausa do sistema não destrói pad",
+      "aprovado": true
+    },
+    {
+      "teste": "Play do sistema retoma posição",
+      "aprovado": true
+    },
+    {
+      "teste": "Preparada exibe nome, nota e BPM",
+      "aprovado": true
+    },
+    {
+      "teste": "Palco mostra a preparada, não outra da sequência",
+      "aprovado": true
+    },
+    {
+      "teste": "Próxima inicia exatamente a música exibida",
+      "aprovado": true
+    },
+    {
+      "teste": "Modo somente pad não anuncia metrônomo que não toca",
+      "aprovado": true
+    },
+    {
+      "teste": "Palco compacto sem sobreposição 320x568",
+      "aprovado": true
+    },
+    {
+      "teste": "Palco compacto sem sobreposição 390x740",
+      "aprovado": true
+    },
+    {
+      "teste": "Palco compacto sem sobreposição 414x896",
+      "aprovado": true
+    },
+    {
+      "teste": "Palco compacto sem sobreposição 768x1024",
+      "aprovado": true
+    },
+    {
+      "teste": "Palco compacto sem sobreposição 1366x768",
+      "aprovado": true
+    },
+    {
+      "teste": "Palco compacto sem sobreposição 844x390",
+      "aprovado": true
+    },
+    {
+      "teste": "× com confirmação preservado",
+      "aprovado": true
+    },
+    {
+      "teste": "Cancelar mantém músicas",
+      "aprovado": true
+    },
+    {
+      "teste": "Cópia personalizada preservada",
+      "aprovado": true
+    },
+    {
+      "teste": "Fade-out nativo preservado",
+      "aprovado": true,
+      "antes": 0.7501383535841715,
+      "depois": 0.2711577545135596
+    },
+    {
+      "teste": "Parada conclui",
+      "aprovado": true
+    },
+    {
+      "teste": "Pad independente da suspensão do AudioContext",
+      "aprovado": true
+    },
+    {
+      "teste": "Sessão e setlist preservadas",
+      "aprovado": true
+    },
+    {
+      "teste": "Sem erros JavaScript",
+      "aprovado": true
+    },
+    {
+      "teste": "Fallback GainNode para navegador sem volume nativo",
+      "aprovado": true
+    }
+  ],
+  "limites": "Chromium headless com áudio WAV sintético. Congelamento via CDP testa independência de timers, não troca real de aplicativo em iPhone/iPad. Fallback de volume foi simulado. Não certifica segundo plano no aparelho do usuário."
+}

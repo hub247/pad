@@ -1,0 +1,79 @@
+PAD V14 - SOMENTE SEGUNDO PLANO E DETALHES DA PROXIMA MUSICA
+
+PACOTE COMPLETO DO APLICATIVO, SEM OS MP3 ORIGINAIS.
+
+ATUALIZACAO
+1. Faca backup do projeto atual.
+2. Copie o CONTEUDO da pasta pad-v14 para a raiz do projeto publicado.
+3. Substitua os arquivos de interface, incluindo app.js e sw.js.
+4. PRESERVE a pasta audio com todos os MP3. Nao renomeie nem apague.
+5. Publique no mesmo endereco, feche todas as janelas do app e reabra.
+6. Confira Ajustes > Sobre: Versao 14.
+7. NAO limpe os dados do navegador, pois contem a setlist.
+
+AJUSTE 1: REPRODUCAO EM SEGUNDO PLANO
+- O pad usa o elemento de audio nativo, com o mesmo endereco do MP3,
+  sem passar pelo AudioContext quando o navegador permite volume nativo.
+  A reproducao estavel deixa de depender de timers JavaScript.
+- A sessao de audio e declarada como playback, quando a API existe.
+- Os controles de midia do sistema recebem metadados e play/pause/stop.
+  Pausar nao destroi o player nem zera a posicao; play retoma a posicao.
+- Sair da tela nao chama pause nem stop. Nao ha audio silencioso em loop,
+  download extra para manter o app vivo ou tentativa de burlar o sistema.
+- Se sair durante uma transicao, ela e finalizada no volume-alvo para
+  evitar que o congelamento de timers deixe a nova voz muda ou a antiga presa.
+  Assim, o restante do fade nao continua sendo animado com a pagina oculta.
+- Fades e crossfade continuam ativos em primeiro plano.
+- Se o navegador ignora a propriedade volume, o app conserva GainNode para
+  preservar fades e volumes. Nesse fallback, o pad ainda depende de Web Audio;
+  a declaracao playback e feita, mas nao ha garantia de segundo plano.
+- O metronomo manteve o motor de ganho/tempo anterior. Nao foi prometida
+  continuidade independente do metronomo em segundo plano.
+- Pausas por chamadas, outro app de audio, economia de energia ou politica do
+  navegador nao sao ignoradas. Nao ha retomada forcada apos pausa do usuario.
+
+IMPORTANTE SOBRE CELULARES
+O suporte a segundo plano depende do navegador, sistema e aparelho.
+Esta entrega NAO foi testada fisicamente em iPhone/iPad/Android.
+Teste o app publicado: inicie um pad, aguarde o carregamento/fade, troque de
+aplicativo e volte. Verifique tambem volume, loop e controles de midia.
+Faca esse teste antes de usar ao vivo. Nao feche/force o encerramento do app.
+
+AJUSTE 2: MUSICA PREPARADA / PROXIMA
+- Uma linha curta mostra nota e BPM, por exemplo: Tom F# · 112 BPM.
+- A linha aparece no resumo Preparada e no campo Proxima do Modo Palco.
+- A musica preparada explicitamente prevalece sobre a ordem automatica.
+  O botao Proxima inicia a mesma musica exibida, com a mesma nota e BPM.
+- Sem musica preparada diferente da atual, o palco mostra a proxima da ordem.
+- Somente pad mostra Tom D · So pad, sem anunciar um metronomo que nao tocara.
+- Somente metronomo mostra So metronomo · 90 BPM, sem inventar nota de pad.
+- Apenas preparar indica que nao inicia audio.
+- A linha usa o espaco do cabecalho existente, sem criar painel novo.
+
+PRESERVACAO
+Mantidos os arquivos de interface enviados como base, os icones originais,
+setlist, exclusao por x com confirmacao, editor, Salvar alteracao, copia,
+favoritos, historico, tema, tutorial, instalacao, trava, sessao e caches de audio.
+As chaves locais continuam pad-v12 para nao perder os dados ja salvos.
+A revisao do cache da interface foi atualizada para distribuir a V14.
+O ZIP V13 gerado anteriormente nao estava acessivel nesta execucao; os arquivos
+anexados da V12 foram reutilizados e os ajustes anteriores foram reaplicados.
+Portanto, nao ha comparacao binaria certificada com o ZIP V13 publicado.
+Nao foi criada capa de BI: o escopo desta entrega foi apenas os dois ajustes do Pad.
+
+TESTES
+- Sintaxe JavaScript validada.
+- Chromium headless, sinal WAV sintetico servido apenas durante os testes.
+- Player nativo avanca com JavaScript congelado por CDP.
+- Pausa/play preservam player e posicao.
+- Fades, crossfade, ocultacao, offline e Range offline testados.
+- Proxima/preparada, nota/BPM, ordem e modos de reproducao testados.
+- Modo Palco sem sobreposicao em seis tamanhos de tela.
+- Fallback de navegador que ignora volume foi simulado, nao testado em iOS real.
+- Testes nao certificam os MP3 originais nem o segundo plano em aparelho fisico.
+Veja docs/testes-v14.json e docs/testes-v14-extra.json.
+
+REFERENCIAS TECNICAS
+https://developer.mozilla.org/en-US/docs/Web/API/AudioSession
+https://developer.mozilla.org/en-US/docs/Web/API/Audio_Session_API
+https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement

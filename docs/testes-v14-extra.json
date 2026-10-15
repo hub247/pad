@@ -1,0 +1,25 @@
+{
+  "testes": [
+    {
+      "teste": "Crossfade: duas vozes, entrada sobe e saída desce",
+      "aprovado": true
+    },
+    {
+      "teste": "Ocultar não pausa pad e finaliza apenas a transição",
+      "aprovado": true
+    },
+    {
+      "teste": "Voltar não recria o player",
+      "aprovado": true
+    },
+    {
+      "teste": "Reprodução nativa offline avança",
+      "aprovado": true
+    },
+    {
+      "teste": "Range offline preservado",
+      "aprovado": true
+    }
+  ],
+  "limites": "Chromium headless e áudio WAV sintético; visibilidade emulada. Não é teste físico em celular."
+}
