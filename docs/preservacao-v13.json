@@ -1,0 +1,22 @@
+{
+  "icons/icon-180.png": {
+    "identico_ao_enviado": true,
+    "sha256": "af826b2c937f38859cbe23b2975660388666871773949f9789e72fe5002cbe0b"
+  },
+  "icons/icon-192.png": {
+    "identico_ao_enviado": true,
+    "sha256": "94f26dc88581d6a12a2833dbb9dcb1edd64b804bf41f6f1b128a05a8912eb1d6"
+  },
+  "icons/icon-512.png": {
+    "identico_ao_enviado": true,
+    "sha256": "4d7e60ed762346ce5b36431f035d15add621e47048f370e859427c9d49462784"
+  },
+  "index.html": {
+    "layout_enviado_preservado": true,
+    "unica_mudanca": "Versão 12 para Versão 13 em Sobre"
+  },
+  "styles.css": {
+    "css_enviado_preservado": true,
+    "acrescimo_preservado": "Estilo do botão × da V12 corrigida"
+  }
+}

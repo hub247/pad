@@ -1,0 +1,8 @@
+{
+  "cache_ativo": true,
+  "recarga_offline": true,
+  "reproducao_offline_com_sinal_apos_ganho": true,
+  "rms": 0.11995559428778811,
+  "range_206": true,
+  "limites": "Chromium com sinal WAV sintético; não é validação dos MP3 originais nem de alto-falantes físicos."
+}
