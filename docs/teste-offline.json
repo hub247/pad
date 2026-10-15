@@ -1,8 +1,0 @@
-{
-  "service_worker": true,
-  "cache_audio": true,
-  "recarregar_offline": true,
-  "reproduzir_offline": true,
-  "range_206": true,
-  "nota": "Teste Chromium com áudio de teste sintético servido em memória. Nenhum áudio de teste incluído no pacote."
-}
