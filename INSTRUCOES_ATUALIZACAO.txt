@@ -1,5 +1,0 @@
-V12: copie TODOS os arquivos desta pasta para o projeto, inclusive app.js e styles.css.
-PRESERVE seus MP3 na pasta audio. O ZIP não contém os áudios originais.
-Não limpe o armazenamento local: ele contém a setlist.
-Publique pelo mesmo endereço HTTPS. Feche e reabra o app.
-Leia README.md e docs/ antes de usar ao vivo.
